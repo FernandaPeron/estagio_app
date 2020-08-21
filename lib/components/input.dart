@@ -36,6 +36,7 @@ class InputField extends StatelessWidget {
         focusedBorder: _buildOutlineInputBorder(),
         enabledBorder: _buildOutlineInputBorder(),
         focusedErrorBorder: _buildOutlineInputBorder(),
+        errorStyle: TextStyle(color: Colors.white),
         contentPadding: EdgeInsets.fromLTRB(25, 5, 0, 0),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,

@@ -1,8 +1,12 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/components/button.dart';
 import 'package:estagio_app/components/input.dart';
 import 'package:estagio_app/entity/user_entity.dart';
-import 'file:///C:/Users/ferfk/StudioProjects/estagio_app/lib/pages/login/login.dart';
+import 'package:estagio_app/pages/home/home.dart';
+import 'package:estagio_app/pages/login/login.dart';
 import 'package:estagio_app/services/user_service.dart';
+import 'package:estagio_app/utils/alert.dart';
 import 'package:estagio_app/utils/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -150,6 +154,9 @@ class _RegisterState extends State<Register> {
     if (text.isEmpty) {
       return "Digite seu e-mail";
     }
+    if (!EmailValidator.validate(text)) {
+      return "E-mail inválido.";
+    }
     return null;
   }
 
@@ -184,9 +191,14 @@ class _RegisterState extends State<Register> {
       email: email,
       password: password,
     );
-    final response = await service.register(user);
-    User appUser = Provider.of<User>(context, listen: false);
-    appUser.updateUser(User.fromJson(response));
+    ApiResponse response = await service.register(user);
+    if (response != null && response.isOk) {
+      User appUser = Provider.of<User>(context, listen: false);
+      appUser.updateUser(response.result);
+      push(context, Home(), replace: true);
+    } else {
+      alert(context, response.msg);
+    }
     setState(() {
       _showProgress = false;
     });

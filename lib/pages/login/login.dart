@@ -1,9 +1,10 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/components/button.dart';
 import 'package:estagio_app/components/input.dart';
 import 'package:estagio_app/entity/user_entity.dart';
 import 'package:estagio_app/pages/home/home.dart';
-import 'file:///C:/Users/ferfk/StudioProjects/estagio_app/lib/pages/login/register.dart';
+import 'package:estagio_app/pages/login/register.dart';
 import 'package:estagio_app/services/user_service.dart';
 import 'package:estagio_app/utils/alert.dart';
 import 'package:estagio_app/utils/nav.dart';
@@ -135,7 +136,10 @@ class _LoginPageState extends State<LoginPage> {
 
   String _emailValidator(String text) {
     if (text.isEmpty) {
-      return "Digite seu e-mail";
+      return "Digite seu e-mail.";
+    }
+    if (!EmailValidator.validate(text)) {
+      return "E-mail inválido.";
     }
     return null;
   }

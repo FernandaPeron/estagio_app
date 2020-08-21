@@ -18,6 +18,9 @@ class UserService {
     });
     try {
       var response = await http.post(url, body: body, headers: requestHeaders);
+      if (response.statusCode != 200) {
+        return ApiResponse.error(msg: _handleResponse(response.statusCode));
+      }
       var jsonResponse = convert.jsonDecode(response.body);
       var user = new User.fromJson(jsonResponse);
       return ApiResponse.ok(result: user);
@@ -28,22 +31,27 @@ class UserService {
 
   register(user) async {
     var url = 'http://10.0.2.2:8080/client';
-    return http.post(url, body: user).then((response) {
+    final body = convert.jsonEncode(user.toJson());
+    try {
+      var response = await http.post(url, body: body, headers: requestHeaders);
+      if (response.statusCode != 200) {
+        return ApiResponse.error(msg: _handleResponse(response.statusCode));
+      }
       var jsonResponse = convert.jsonDecode(response.body);
       var user = new User.fromJson(jsonResponse);
       return ApiResponse.ok(result: user);
-    }).catchError((error) {
+    } catch (error) {
       return ApiResponse.error(msg: _handleResponse(error));
-    });
+    }
   }
 
-  String _handleResponse(error) {
-    switch(error != null ? error : '') {
+  _handleResponse(status) {
+    switch(status) {
       case 401:
         return "Senha incorreta.";
         break;
       case 404:
-        return "Usuário não encontrado";
+        return "Usuário não encontrado.";
         break;
       default:
         return "Ocorreu um erro ao realizar a operação.";

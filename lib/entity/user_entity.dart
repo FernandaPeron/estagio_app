@@ -15,6 +15,14 @@ class User with ChangeNotifier {
     this.password = map["password"];
   }
 
+  Map<String, dynamic> toJson() =>
+    {
+      'id': this.id,
+      'userName': this.name,
+      'email': this.email,
+      'password': this.password,
+    };
+
   updateUser([User user]) {
     if (user != null) {
       this.id = user.id;
