@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'entity/user_entity.dart';
-import 'login/login.dart';
+import 'pages/login/login.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
           primary: Color(0xff213933),
           secondary: Color(0xff609185),
           background: Color(0xff3D5C54),
+          surface: Color(0xffECECEC),
+          onSurface: Colors.black,
         ),
       ),
       home: LoginPage(),

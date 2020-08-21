@@ -19,7 +19,7 @@ class _ButtonState extends State<Button> {
       color: _color(),
       child: widget.buttonContent,
       shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(50.0),
+        borderRadius: new BorderRadius.circular(10.0),
         side: BorderSide(
           color: _color(),
         ),

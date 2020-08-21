@@ -28,7 +28,7 @@ class InputField extends StatelessWidget {
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       style: TextStyle(
-        color: Color(0xFFC4C4C4),
+        color: Theme.of(context).colorScheme.onSurface,
       ),
       obscureText: obscureText,
       decoration: InputDecoration(
@@ -38,11 +38,12 @@ class InputField extends StatelessWidget {
         focusedErrorBorder: _buildOutlineInputBorder(),
         contentPadding: EdgeInsets.fromLTRB(25, 5, 0, 0),
         filled: true,
-        fillColor: Color(0xFF5A5A5A),
+        fillColor: Theme.of(context).colorScheme.surface,
         hintText: hint,
         hintStyle: TextStyle(
           fontSize: 15,
           fontStyle: FontStyle.italic,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
       ),
     );
@@ -50,7 +51,7 @@ class InputField extends StatelessWidget {
 
   OutlineInputBorder _buildOutlineInputBorder() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
         color: Colors.transparent,
       ),
