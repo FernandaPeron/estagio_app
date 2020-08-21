@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/entity/user_entity.dart';
 import 'package:http/http.dart' as http;
