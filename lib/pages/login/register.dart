@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/components/button.dart';
 import 'package:estagio_app/components/input.dart';
@@ -8,6 +7,7 @@ import 'package:estagio_app/pages/login/login.dart';
 import 'package:estagio_app/services/user_service.dart';
 import 'package:estagio_app/utils/alert.dart';
 import 'package:estagio_app/utils/nav.dart';
+import 'package:estagio_app/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +23,7 @@ class _RegisterState extends State<Register> {
   final _passwordController = TextEditingController();
   bool _showProgress = false;
   final service = new UserService();
+  final validator = new Validator();
 
   @override
   Widget build(BuildContext context) {
@@ -150,64 +151,6 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  String _emailValidator(String text) {
-    if (text.isEmpty) {
-      return "Digite seu e-mail";
-    }
-    if (!EmailValidator.validate(text)) {
-      return "E-mail inválido.";
-    }
-    return null;
-  }
-
-  String _passwordValidator(String text) {
-    if (text.isEmpty) {
-      return "Digite sua senha";
-    }
-    return null;
-  }
-
-  String _nameValidator(String text) {
-    if (text.isEmpty) {
-      return "Digite seu nome";
-    }
-    return null;
-  }
-
-  _onClickRegister() async {
-    bool isValidForm = _formKey.currentState.validate();
-
-    if (!isValidForm) return;
-
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    setState(() {
-      _showProgress = true;
-    });
-    final user = new User(
-      name: name,
-      email: email,
-      password: password,
-    );
-    ApiResponse response = await service.register(user);
-    if (response != null && response.isOk) {
-      User appUser = Provider.of<User>(context, listen: false);
-      appUser.updateUser(response.result);
-      push(context, Home(), replace: true);
-    } else {
-      alert(context, response.msg);
-    }
-    setState(() {
-      _showProgress = false;
-    });
-  }
-
-  _registerButtonContent() {
-    return _showProgress ? _buttonLoading() : _buttonText();
-  }
-
   _buttonText() {
     return Text(
       "Registrar",
@@ -227,5 +170,55 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  _onClickRegister() async {
+    bool isValidForm = _formKey.currentState.validate();
+
+    if (!isValidForm) return;
+
+    String name = _nameController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+
+    setState(() {
+      _showProgress = true;
+    });
+    final user = new User(
+      name: name,
+      email: email,
+      password: password,
+    );
+    await callServiceRegister(user);
+    setState(() {
+      _showProgress = false;
+    });
+  }
+
+  callServiceRegister(User user) async {
+    ApiResponse response = await service.register(user);
+    if (response != null && response.isOk) {
+      User appUser = Provider.of<User>(context, listen: false);
+      appUser.updateUser(response.result);
+      push(context, Home(), replace: true);
+    } else {
+      alert(context, response.msg);
+    }
+  }
+
+  _registerButtonContent() {
+    return _showProgress ? _buttonLoading() : _buttonText();
+  }
+
+  String _emailValidator(String email) {
+    return validator.validateEmail(email);
+  }
+
+  String _passwordValidator(String password) {
+    return validator.validatePassword(password);
+  }
+
+  String _nameValidator(String name) {
+    return validator.validateName(name);
   }
 }

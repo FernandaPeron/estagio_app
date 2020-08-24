@@ -10,7 +10,7 @@ class User with ChangeNotifier {
 
   User.fromJson(Map<String, dynamic> map) {
     this.id = map["id"];
-    this.name = map["nome"];
+    this.name = map["userName"];
     this.email = map["email"];
     this.password = map["password"];
   }

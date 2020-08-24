@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/components/button.dart';
 import 'package:estagio_app/components/input.dart';
@@ -8,6 +7,7 @@ import 'package:estagio_app/pages/login/register.dart';
 import 'package:estagio_app/services/user_service.dart';
 import 'package:estagio_app/utils/alert.dart';
 import 'package:estagio_app/utils/nav.dart';
+import 'package:estagio_app/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool _showProgress = false;
   final service = new UserService();
+  final validator = new Validator();
 
   @override
   Widget build(BuildContext context) {
@@ -134,51 +135,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  String _emailValidator(String text) {
-    if (text.isEmpty) {
-      return "Digite seu e-mail.";
-    }
-    if (!EmailValidator.validate(text)) {
-      return "E-mail inválido.";
-    }
-    return null;
-  }
-
-  String _passwordValidator(String text) {
-    if (text.isEmpty) {
-      return "Digite sua senha";
-    }
-    return null;
-  }
-
-  _onClickLogin() async {
-    bool isValidForm = _formKey.currentState.validate();
-
-    if (!isValidForm) return;
-
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    setState(() {
-      _showProgress = true;
-    });
-    ApiResponse response = await service.login(email, password);
-    if (response != null && response.isOk) {
-      User appUser = Provider.of<User>(context, listen: false);
-      appUser.updateUser(response.result);
-      push(context, Home(), replace: true);
-    } else {
-      alert(context, response.msg);
-    }
-    setState(() {
-      _showProgress = false;
-    });
-  }
-
-  _enterButtonContent() {
-    return _showProgress ? _buttonLoading() : _buttonText();
-  }
-
   _buttonText() {
     return Text(
       "Entrar",
@@ -198,5 +154,42 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  String _emailValidator(String email) {
+    return validator.validateEmail(email);
+  }
+
+  String _passwordValidator(String password) {
+    return validator.validatePassword(password);
+  }
+
+  _onClickLogin() async {
+    bool isValidForm = _formKey.currentState.validate();
+    if (!isValidForm) return;
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    setState(() {
+      _showProgress = true;
+    });
+    await _callServiceLogin(email, password);
+    setState(() {
+      _showProgress = false;
+    });
+  }
+
+  _callServiceLogin(String email, String password) async {
+    ApiResponse response = await service.login(email, password);
+    if (response != null && response.isOk) {
+      User appUser = Provider.of<User>(context, listen: false);
+      appUser.updateUser(response.result);
+      push(context, Home(), replace: true);
+    } else {
+      alert(context, response.msg);
+    }
+  }
+
+  _enterButtonContent() {
+    return _showProgress ? _buttonLoading() : _buttonText();
   }
 }
