@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:email_validator/email_validator.dart';
 
 class Validator {
@@ -19,6 +17,9 @@ class Validator {
     final formatted = password.trim();
     if (formatted.isEmpty) {
       return "Digite sua senha";
+    }
+    if (formatted.length > 10) {
+      return "A senha deve possuir no máximo 10 caracteres";
     }
     return null;
   }

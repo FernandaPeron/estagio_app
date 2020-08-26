@@ -53,6 +53,9 @@ class UserService {
       case 404:
         return "Usuário não encontrado.";
         break;
+      case 409:
+        return "Usuário já cadastrado.";
+        break;
       default:
         return "Ocorreu um erro ao realizar a operação.";
         break;
