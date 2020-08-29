@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
+
+import "package:flutter/material.dart";
 
 class User with ChangeNotifier {
   String id = "";
@@ -9,7 +11,7 @@ class User with ChangeNotifier {
   User({this.id, this.name, this.email, this.password});
 
   User.fromJson(Map<String, dynamic> map) {
-    this.id = map["id"];
+    this.id = map["userId"];
     this.name = map["userName"];
     this.email = map["email"];
     this.password = map["password"];
@@ -17,10 +19,10 @@ class User with ChangeNotifier {
 
   Map<String, dynamic> toJson() =>
     {
-      'id': this.id,
-      'userName': this.name,
-      'email': this.email,
-      'password': this.password,
+      "userId": this.id,
+      "userName": this.name,
+      "email": this.email,
+      "password": this.password,
     };
 
   updateUser([User user]) {
