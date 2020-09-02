@@ -1,16 +1,16 @@
 
-class File {
+class Archive {
   String id = "";
   String name = "";
-  String user = "";
+  String date = "";
   String file = "";
 
-  File({this.id, this.name, this.user, this.file});
+  Archive({this.id, this.name, this.date, this.file});
 
-  File.fromJson(Map<String, dynamic> map) {
+  Archive.fromJson(Map<String, dynamic> map) {
     this.id = map["archiveId"];
     this.name = map["archiveName"];
-    this.user = map["client"];
+    this.date = map["date"];
     this.file = map["file"];
   }
 
@@ -18,7 +18,7 @@ class File {
     {
       "archiveId": this.id,
       "archiveName": this.name,
-      "client": this.user,
+      "date": this.date,
       "file": this.file,
     };
 

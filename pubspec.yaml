@@ -16,6 +16,10 @@ dependencies:
   provider: ^4.1.0
   email_validator: ^1.0.5
   font_awesome_flutter: 8.5.0
+  intl: ^0.16.1
+  path_provider: ^1.6.14
+  file_picker: ^1.13.3
+  dio: 3.0.10
 
 dev_dependencies:
   flutter_test:

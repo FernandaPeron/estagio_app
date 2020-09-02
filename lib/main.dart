@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'entity/user_entity.dart';
 import 'pages/login/login.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => User(),
-      child: MyApp(),
-    ),
+  Intl.defaultLocale = "pt_BR";
+  initializeDateFormatting('pt_BR', null).then((_) =>
+      runApp(
+        ChangeNotifierProvider(
+          create: (context) => User(),
+          child: MyApp(),
+        ),
+      )
   );
 }
 
