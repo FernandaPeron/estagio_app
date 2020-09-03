@@ -121,9 +121,11 @@ class _FilesState extends State<Files> {
       itemBuilder: _buildArchiveItem,
       itemCount: filteredList.length,
     )
-        : Center(
+        : Expanded(
+          child: Center(
       child: Text("Não há arquivos para listar."),
-    );
+    ),
+        );
   }
 
   _searchBar() {
