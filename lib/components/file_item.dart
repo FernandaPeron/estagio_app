@@ -122,8 +122,7 @@ class _FileItemState extends State<FileItem> {
     setState(() {
       downloadLoading = true;
     });
-    await fileService.downloadFile(
-        widget.file, selectedDirectory.path);
+    await fileService.downloadFile(widget.file, selectedDirectory.path);
     alert(context, "Download realizado com sucesso!");
     setState(() {
       downloadLoading = false;
@@ -132,8 +131,12 @@ class _FileItemState extends State<FileItem> {
 
   _iconOrLoading(Icon icon, bool loading) {
     return loading
-        ? CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        ? SizedBox(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+            height: 20,
+            width: 20,
           )
         : icon;
   }
