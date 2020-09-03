@@ -1,10 +1,15 @@
+import 'dart:io';
+
+import 'package:directory_picker/directory_picker.dart';
 import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/services/file_service.dart';
 import 'package:estagio_app/utils/alert.dart';
 import 'package:estagio_app/utils/date.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FileItem extends StatefulWidget {
   final Archive file;
@@ -21,10 +26,25 @@ class _FileItemState extends State<FileItem> {
   bool downloadLoading = false;
   final DateUtils dateUtils = new DateUtils();
   final FileService fileService = new FileService();
+  Directory selectedDirectory;
 
-  @override
-  void initState() {
-    super.initState();
+  Future<void> _pickDirectory(BuildContext context) async {
+    Directory directory = selectedDirectory;
+    if (directory == null) {
+      directory = await getExternalStorageDirectory();
+    }
+
+    Directory newDirectory = await DirectoryPicker.pick(
+        allowFolderCreation: true,
+        context: context,
+        rootDirectory: directory,
+        backgroundColor: Colors.blueGrey,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))));
+
+    setState(() {
+      selectedDirectory = newDirectory;
+    });
   }
 
   @override
@@ -96,15 +116,25 @@ class _FileItemState extends State<FileItem> {
     deleteLoading = false;
   }
 
-  _downloadFile() {
-    fileService.downloadFile(widget.file);
+  _downloadFile() async {
+    await _pickDirectory(context);
+    if (selectedDirectory == null) return;
+    setState(() {
+      downloadLoading = true;
+    });
+    await fileService.downloadFile(
+        widget.file, selectedDirectory.path);
+    alert(context, "Download realizado com sucesso!");
+    setState(() {
+      downloadLoading = false;
+    });
   }
 
   _iconOrLoading(Icon icon, bool loading) {
     return loading
-        ? icon
-        : CircularProgressIndicator(
+        ? CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          );
+          )
+        : icon;
   }
 }

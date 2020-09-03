@@ -1,12 +1,10 @@
 import 'dart:convert' as convert;
-import 'dart:developer';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/entity/file_entity.dart';
 import 'package:http/http.dart' as http;
-import 'dart:io';
-
-import 'package:path_provider/path_provider.dart';
 
 class FileService {
 
@@ -21,7 +19,6 @@ class FileService {
       var userFiles = jsonResponse.map((element) { return Archive.fromJson(element); }).toList();
       return ApiResponse.ok(result: userFiles);
     } catch (error) {
-      print(error);
       return ApiResponse.error(msg: "Ocorreu um erro ao realizar a operação.");
     }
   }
@@ -29,34 +26,43 @@ class FileService {
   deleteFile(fileId) async {
     var url = 'http://10.0.2.2:8080/files/delete/$fileId';
     try {
-      var response = await http.delete(url);
-      if (response.statusCode != 200) {
-        return ApiResponse.error(msg: "Ocorreu um erro ao realizar a operação.");
-      }
-      return ApiResponse.ok();
+      var response = await Dio().delete(url);
+      return ApiResponse.ok(result: response);
     } catch (error) {
-      print(error);
       return ApiResponse.error(msg: "Ocorreu um erro ao realizar a operação.");
     }
   }
 
-  downloadFile(Archive archive) async {
-    /* final path = (await getApplicationDocumentsDirectory()).path;
+  downloadFile(Archive archive, folder) async {
     final name = archive.name;
-    File file = new File('$path/$name');
-    await file.writeAsBytes(convert.utf8.encode(archive.file)); */
+    var url = 'http://10.0.2.2:8080/files/download/${archive.id}';
+    await Dio().download(url, folder + "/" + name);
   }
 
   uploadFile(File file, clientId) async {
     var url = 'http://10.0.2.2:8080/files/upload';
-    var body = {
-      "file": file.readAsBytesSync(),
-      "clientId": clientId,
-    };
-    try {
-      // upload
-    } catch (error) {
-      return ApiResponse.error(msg: "Ocorreu um erro ao realizar a operação.");
+      FormData formData = FormData.fromMap({
+        "clientId": clientId,
+        "file": await MultipartFile.fromFile(file.path)
+      });
+      try {
+        var response = await Dio().post(url, data: formData);
+        return ApiResponse.ok(result: response);
+      } catch (error) {
+        return ApiResponse.error(msg: _handleErrorMessage(error));
+      }
+  }
+
+  _handleErrorMessage(DioError error) {
+    switch(error.response.statusCode) {
+      case 404:
+        return "Usuário não encontrado.";
+        break;
+      case 409:
+        return "Já existe um arquivo com este nome.";
+        break;
+      default:
+        return "Ocorreu um erro ao realizar a operação.";
     }
   }
 

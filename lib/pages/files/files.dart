@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/components/file_item.dart';
 import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/entity/user_entity.dart';
@@ -94,6 +95,13 @@ class _FilesState extends State<Files> {
   _uploadArchive() async {
     File file = await FilePicker.getFile();
     var user = Provider.of<User>(context, listen: false);
-    service.uploadFile(file, user.id);
+    _setShowProgress(true);
+    ApiResponse response = await service.uploadFile(file, user.id);
+    if (response != null && response.isOk) {
+      _getFilesFromUser();
+    } else {
+      alert(context, response.msg);
+    }
+    _setShowProgress(false);
   }
 }
