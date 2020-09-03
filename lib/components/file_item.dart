@@ -51,57 +51,105 @@ class _FileItemState extends State<FileItem> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(15),
+      padding: EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey,
+            width: 0.5,
+          ),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: <Widget>[
-              Icon(
-                FontAwesomeIcons.solidFile,
-                size: 40,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(widget.file.name),
-                  Text(
-                    dateUtils.formatDate("d MMM yyyy, hh:mm", widget.file.date),
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey,
-                    ),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  FontAwesomeIcons.solidFile,
+                  size: 40,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        widget.file.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(height: 2),
+                      ),
+                      Text(
+                        dateUtils.formatDate(
+                            "d MMM yyyy, HH:mm", widget.file.date),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey,
+                          height: 2,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
-          Row(
-            children: <Widget>[
-              GestureDetector(
-                child: _iconOrLoading(
-                    Icon(FontAwesomeIcons.download), downloadLoading),
-                onTap: () => _downloadFile(),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              GestureDetector(
-                child: _iconOrLoading(
-                    Icon(
-                      FontAwesomeIcons.trash,
-                      color: Colors.red,
-                    ),
-                    deleteLoading),
-                onTap: () => _deleteFile(),
-              ),
-            ],
+          Container(
+            margin: EdgeInsets.only(left: 20),
+            child: Row(
+              children: <Widget>[
+                GestureDetector(
+                  child: _iconOrLoading(
+                      Icon(FontAwesomeIcons.download), downloadLoading),
+                  onTap: () => _downloadFile(),
+                ),
+                SizedBox(
+                  width: 25,
+                ),
+                GestureDetector(
+                  child: _iconOrLoading(
+                      Icon(
+                        FontAwesomeIcons.trash,
+                        color: Colors.red,
+                      ),
+                      deleteLoading),
+                  onTap: () => _confirmDelete(),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
+  }
+
+  _confirmDelete() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text("Deseja apagar o arquivo?"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Não"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              FlatButton(
+                child: Text("Sim"),
+                onPressed: () {
+                  Navigator.pop(context);
+                  _deleteFile();
+                },
+              )
+            ],
+          );
+        });
   }
 
   _deleteFile() async {

@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/components/file_item.dart';
+import 'package:estagio_app/components/search_bar.dart';
 import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/entity/user_entity.dart';
 import 'package:estagio_app/services/file_service.dart';
@@ -19,6 +21,7 @@ class _FilesState extends State<Files> {
   FileService service = new FileService();
   User _user;
   bool _showProgress = false;
+  List<Archive> filteredList = [];
 
   @override
   initState() {
@@ -51,20 +54,17 @@ class _FilesState extends State<Files> {
 
   _body() {
     return Container(
-        child: files.length != 0
-            ? ListView.builder(
-                shrinkWrap: true,
-                physics: new NeverScrollableScrollPhysics(),
-                itemBuilder: _buildArchiveItem,
-                itemCount: files.length,
-              )
-            : Center(
-                child: Text("Não há arquivos para listar."),
-              ));
+      child: Column(
+        children: <Widget>[
+          _searchBar(),
+          _listOfFiles(),
+        ],
+      ),
+    );
   }
 
   Widget _buildArchiveItem(context, int index) {
-    return FileItem(files[index], _getFilesFromUser);
+    return FileItem(filteredList[index], _getFilesFromUser);
   }
 
   _loading() {
@@ -79,11 +79,19 @@ class _FilesState extends State<Files> {
     _setShowProgress(true);
     final response = await service.getFilesFromUser(_user.id);
     if (response != null && response.isOk) {
-      files = response.result;
+      setState(() {
+        files = response.result;
+        filteredList = List.from(files);
+        _sortList();
+      });
     } else {
       alert(context, response.msg);
     }
     _setShowProgress(false);
+  }
+
+  void _sortList() {
+    filteredList.sort((a,b) => b.date.compareTo(a.date));
   }
 
   _setShowProgress(bool state) {
@@ -103,5 +111,38 @@ class _FilesState extends State<Files> {
       alert(context, response.msg);
     }
     _setShowProgress(false);
+  }
+
+  _listOfFiles() {
+    return  filteredList.length != 0
+        ? ListView.builder(
+      shrinkWrap: true,
+      physics: new NeverScrollableScrollPhysics(),
+      itemBuilder: _buildArchiveItem,
+      itemCount: filteredList.length,
+    )
+        : Center(
+      child: Text("Não há arquivos para listar."),
+    );
+  }
+
+  _searchBar() {
+    return SearchBar(_filterList, "Buscar arquivo");
+  }
+
+  _filterList(String term) {
+    if (term.isEmpty) {
+      setState(() {
+        filteredList = List.from(files);
+        _sortList();
+      });
+      return;
+    }
+    setState(() {
+      filteredList = files
+          .where((element) => element.name.toLowerCase().contains(term.toLowerCase()))
+          .toList();
+      _sortList();
+    });
   }
 }

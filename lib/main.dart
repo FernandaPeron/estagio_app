@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xff213933),
         fontFamily: "Cairo",
         brightness: Brightness.dark,
+        textTheme: Theme.of(context).textTheme.apply(
+          bodyColor: Colors.white,
+          fontSizeFactor: 1.05,
+        ),
         colorScheme: ColorScheme.dark(
           primary: Color(0xff213933),
           secondary: Color(0xff609185),
