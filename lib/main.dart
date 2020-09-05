@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'entity/user_entity.dart';
@@ -6,14 +7,11 @@ import 'pages/login/login.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  Intl.defaultLocale = "pt_BR";
-  initializeDateFormatting('pt_BR', null).then((_) =>
-      runApp(
-        ChangeNotifierProvider(
-          create: (context) => User(),
-          child: MyApp(),
-        ),
-      )
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => User(),
+      child: MyApp(),
+    ),
   );
 }
 
@@ -22,6 +20,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('pt', 'BR'),
+      ],
+      locale: Locale('pt'),
       theme: ThemeData(
         primaryColor: Color(0xff213933),
         fontFamily: "Cairo",

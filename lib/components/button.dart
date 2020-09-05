@@ -14,17 +14,20 @@ class Button extends StatefulWidget {
 class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      elevation: 5,
-      color: _color(),
-      child: widget.buttonContent,
-      shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(10.0),
-        side: BorderSide(
-          color: _color(),
+    return Container(
+      width: 100,
+      child: RaisedButton(
+        elevation: 3,
+        color: _color(),
+        child: widget.buttonContent,
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+          side: BorderSide(
+            color: _color(),
+          ),
         ),
+        onPressed: () => widget.onPressed(),
       ),
-      onPressed: () => widget.onPressed(),
     );
   }
 
