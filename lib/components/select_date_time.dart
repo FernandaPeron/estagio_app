@@ -195,7 +195,7 @@ class _SelectDateTimeState extends State<SelectDateTime> {
           ),
           Button(
             Text("Salvar"),
-            () => widget._dateTimeSelected(_selectedDate, _selectedTime),
+            () => widget._dateTimeSelected(_selectedDate, _selectedTime, _nameController.text),
             primary: true,
           ),
         ],

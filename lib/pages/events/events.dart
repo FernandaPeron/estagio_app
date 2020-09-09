@@ -1,7 +1,14 @@
+import 'dart:developer';
+
 import 'package:estagio_app/components/select_date_time.dart';
+import 'package:estagio_app/entity/event_entity.dart';
+import 'package:estagio_app/entity/user_entity.dart';
+import 'package:estagio_app/services/event_service.dart';
+import 'package:estagio_app/utils/date.dart';
 import 'package:estagio_app/utils/nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Events extends StatefulWidget {
@@ -12,68 +19,16 @@ class Events extends StatefulWidget {
 class _EventsState extends State<Events> {
   var _calendarController;
   Map<DateTime, List> _events;
-  List _selectedEvents;
+  List _selectedEvents = [];
+  EventService eventService = new EventService();
+  DateUtils dateUtils = new DateUtils();
   var _selectedDay;
 
   @override
   void initState() {
     _calendarController = CalendarController();
     final _selectedDay = DateTime.now();
-    _events = {
-      _selectedDay.subtract(Duration(days: 30)): [
-        'Event A0',
-        'Event B0',
-        'Event C0'
-      ],
-      _selectedDay.subtract(Duration(days: 27)): ['Event A1'],
-      _selectedDay.subtract(Duration(days: 20)): [
-        'Event A2',
-        'Event B2',
-        'Event C2',
-        'Event D2'
-      ],
-      _selectedDay.subtract(Duration(days: 16)): ['Event A3', 'Event B3'],
-      _selectedDay.subtract(Duration(days: 10)): [
-        'Event A4',
-        'Event B4',
-        'Event C4'
-      ],
-      _selectedDay.subtract(Duration(days: 4)): [
-        'Event A5',
-        'Event B5',
-        'Event C5'
-      ],
-      _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
-      _selectedDay: ['Event A7', 'Event B7', 'Event C7', 'Event D7'],
-      _selectedDay.add(Duration(days: 1)): [
-        'Event A8',
-        'Event B8',
-        'Event C8',
-        'Event D8'
-      ],
-      _selectedDay.add(Duration(days: 3)):
-          Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-      _selectedDay.add(Duration(days: 7)): [
-        'Event A10',
-        'Event B10',
-        'Event C10'
-      ],
-      _selectedDay.add(Duration(days: 11)): ['Event A11', 'Event B11'],
-      _selectedDay.add(Duration(days: 17)): [
-        'Event A12',
-        'Event B12',
-        'Event C12',
-        'Event D12'
-      ],
-      _selectedDay.add(Duration(days: 22)): ['Event A13', 'Event B13'],
-      _selectedDay.add(Duration(days: 26)): [
-        'Event A14',
-        'Event B14',
-        'Event C14'
-      ],
-    };
-
-    _selectedEvents = _events[_selectedDay] ?? [];
+    _handleEvents();
     super.initState();
   }
 
@@ -115,7 +70,7 @@ class _EventsState extends State<Events> {
           ),
           margin: EdgeInsets.all(15),
           child: TableCalendar(
-            availableGestures: AvailableGestures.all,
+            availableGestures: AvailableGestures.horizontalSwipe,
             events: _events,
             onDaySelected: _onDaySelected,
             calendarController: _calendarController,
@@ -258,8 +213,19 @@ class _EventsState extends State<Events> {
         }));
   }
 
-  _createEvent(date, time) {
-    print(date);
-    print(time);
+  _createEvent(DateTime date, TimeOfDay time, name) {
+    User user = Provider.of<User>(context, listen: false);
+    var datetime = DateTime(date.year, date.month,
+        date.day, time.hour, time.minute);
+    var formattedTime = dateUtils.formatDate("HH:mm", datetime.toString());
+    var event = new Event(eventName: name, date: date.toIso8601String(), time: formattedTime);
+    eventService.insertEvent(user.id, event);
+  }
+
+  void _handleEvents() async {
+    User user = Provider.of<User>(context, listen: false);
+    var events = await eventService.getAllMappedFromUser(user.id);
+    var selectedEvents = _events != null ? _events[_selectedDay] : null;
+    _selectedEvents = selectedEvents != null ? selectedEvents : [];
   }
 }
