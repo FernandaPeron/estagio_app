@@ -21,8 +21,12 @@ class EventService {
   getAllMappedFromUser(userId) async {
     ApiResponse response = await getAllFromUser(userId);
     if (response.isOk) {
-      var grouped = groupBy(response.result, (obj) => obj['date']);
-      return ApiResponse.ok(result: grouped);
+      var mapped = response.result.map((item) => new Event.fromJson(item)).toList();
+      var grouped = groupBy(mapped, (obj) {
+        return obj.date;
+      });
+      var result = Map<DateTime, List<dynamic>>.from(grouped);
+      return ApiResponse.ok(result: result);
     }
     return ApiResponse.error(msg: "Ocorreu um erro ao realizar a operação.");
   }
@@ -32,6 +36,16 @@ class EventService {
     var data = convert.jsonEncode(event.toJson());
     try {
       var response = await Dio().post(url, data: data);
+      return ApiResponse.ok(result: response.data);
+    } catch (error) {
+      return ApiResponse.error(msg: "Ocorreu um erro ao realizar a operação.");
+    }
+  }
+
+  deleteEvent(eventId) async {
+    var url = 'http://10.0.2.2:8080/event/$eventId';
+    try {
+      var response = await Dio().delete(url);
       return ApiResponse.ok(result: response.data);
     } catch (error) {
       return ApiResponse.error(msg: "Ocorreu um erro ao realizar a operação.");

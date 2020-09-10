@@ -5,6 +5,7 @@ import 'package:estagio_app/api/api_response.dart';
 import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/services/file_service.dart';
 import 'package:estagio_app/utils/alert.dart';
+import 'package:estagio_app/utils/confirm_dialog.dart';
 import 'package:estagio_app/utils/date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -129,27 +130,10 @@ class _FileItemState extends State<FileItem> {
 
   _confirmDelete() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text("Deseja apagar o arquivo?"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Não"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              FlatButton(
-                child: Text("Sim"),
-                onPressed: () {
-                  Navigator.pop(context);
-                  _deleteFile();
-                },
-              )
-            ],
-          );
-        });
+      context: context,
+      builder: (context) {
+        return ConfirmDialog(_deleteFile, "Deseja apagar o arquivo?");
+      });
   }
 
   _deleteFile() async {
