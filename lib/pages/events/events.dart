@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:estagio_app/components/select_date_time.dart';
 import 'package:estagio_app/entity/event_entity.dart';
 import 'package:estagio_app/entity/user_entity.dart';
@@ -7,7 +5,6 @@ import 'package:estagio_app/services/event_service.dart';
 import 'package:estagio_app/utils/alert.dart';
 import 'package:estagio_app/utils/confirm_dialog.dart';
 import 'package:estagio_app/utils/date.dart';
-import 'package:estagio_app/utils/nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +21,7 @@ class _EventsState extends State<Events> {
   List _selectedEvents = [];
   EventService eventService = new EventService();
   DateUtils dateUtils = new DateUtils();
-  var _selectedDay;
+  var _selectedDay = new DateTime.now();
 
   @override
   void initState() {
@@ -64,107 +61,132 @@ class _EventsState extends State<Events> {
   _body() {
     return ListView(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.black12,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          margin: EdgeInsets.all(15),
-          child: TableCalendar(
-            availableGestures: AvailableGestures.horizontalSwipe,
-            events: _events,
-            onDaySelected: _onDaySelected,
-            calendarController: _calendarController,
-            locale: 'pt_BR',
-            headerStyle: HeaderStyle(
-              leftChevronIcon: Icon(
-                Icons.chevron_left,
-                color: Colors.white,
-              ),
-              rightChevronIcon: Icon(
-                Icons.chevron_right,
-                color: Colors.white,
-              ),
-              formatButtonVisible: false,
-            ),
-            calendarStyle: CalendarStyle(
-              weekendStyle: TextStyle().copyWith(
-                color: Color(0xFFFF9393),
-              ),
-              outsideDaysVisible: false,
-            ),
-            daysOfWeekStyle: DaysOfWeekStyle(
-              weekdayStyle: TextStyle().copyWith(color: Colors.white),
-              weekendStyle: TextStyle().copyWith(color: Colors.white),
-            ),
-            builders: CalendarBuilders(
-              markersBuilder: (context, date, events, holidays) {
-                final children = <Widget>[];
-
-                if (events.isNotEmpty) {
-                  children.add(
-                    Positioned(
-                      right: 1,
-                      bottom: 1,
-                      child: _buildEventsMarker(date, events),
-                    ),
-                  );
-                }
-                return children;
-              },
-              selectedDayBuilder: (context, date, _) {
-                return Container(
-                  margin: const EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  width: 100,
-                  height: 100,
-                  child: Center(
-                    child: Text(
-                      '${date.day}',
-                    ),
-                  ),
-                );
-              },
-              todayDayBuilder: (context, date, _) {
-                return Container(
-                  margin: const EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  width: 100,
-                  height: 100,
-                  child: Center(
-                    child: Text(
-                      '${date.day}',
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
+        _calendar(),
         Container(child: _buildEventList()),
       ],
     );
   }
 
-  Widget _buildEventList() {
+  _buildEventList() {
     return _selectedEvents.length != 0
         ? _listViewEvent()
-        : Container(
-            child: Text("Não há eventos"),
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 25),
-          );
+        : _noEventsContainer();
   }
 
-  _listViewEvent() { // ver alternativa
-    return ListView(
-      children: _selectedEvents.map((event) => _eventItem(event)).toList(),
+  _noEventsContainer() {
+    return Container(
+      child: Text("Não há eventos"),
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(top: 25),
+    );
+  }
+
+  _calendar() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black12,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: EdgeInsets.all(15),
+      child: TableCalendar(
+        availableGestures: AvailableGestures.horizontalSwipe,
+        events: _events,
+        onDaySelected: _onDaySelected,
+        calendarController: _calendarController,
+        locale: 'pt_BR',
+        headerStyle: HeaderStyle(
+          leftChevronIcon: Icon(
+            Icons.chevron_left,
+            color: Colors.white,
+          ),
+          rightChevronIcon: Icon(
+            Icons.chevron_right,
+            color: Colors.white,
+          ),
+          formatButtonVisible: false,
+        ),
+        calendarStyle: CalendarStyle(
+          weekendStyle: TextStyle().copyWith(
+            color: Color(0xFFFF9393),
+          ),
+          outsideDaysVisible: false,
+        ),
+        daysOfWeekStyle: DaysOfWeekStyle(
+          weekdayStyle: TextStyle().copyWith(color: Colors.white),
+          weekendStyle: TextStyle().copyWith(color: Colors.white),
+        ),
+        builders: CalendarBuilders(
+          markersBuilder: (context, date, events, holidays) {
+            return _markersBuilder(events, date);
+          },
+          selectedDayBuilder: (context, date, _) {
+            return _selectedDayBuilder(context, date);
+          },
+          todayDayBuilder: (context, date, _) {
+            return _todayDayBuilder(context, date);
+          },
+        ),
+      ),
+    );
+  }
+
+  _todayDayBuilder(BuildContext context, DateTime date) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      width: 100,
+      height: 100,
+      child: Center(
+        child: Text(
+          '${date.day}',
+        ),
+      ),
+    );
+  }
+
+  _selectedDayBuilder(BuildContext context, DateTime date) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      width: 100,
+      height: 100,
+      child: Center(
+        child: Text(
+          '${date.day}',
+        ),
+      ),
+    );
+  }
+
+  _markersBuilder(List events, DateTime date) {
+    final children = <Widget>[];
+
+    if (events.isNotEmpty) {
+      children.add(
+        Positioned(
+          right: 1,
+          bottom: 1,
+          child: _buildEventsMarker(date, events),
+        ),
+      );
+    }
+    return children;
+  }
+
+  _listViewEvent() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 0, 10, 80),
+      child: ListView(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        children: _selectedEvents.map((event) => _eventItem(event)).toList(),
+      ),
     );
   }
 
@@ -181,7 +203,7 @@ class _EventsState extends State<Events> {
         subtitle: Text(
           _eventSubtitle(event),
           style: TextStyle(
-            color: Colors.grey,
+            color: Colors.white60,
           ),
         ),
         trailing: Container(
@@ -198,7 +220,7 @@ class _EventsState extends State<Events> {
     );
   }
 
-  Widget _buildEventsMarker(DateTime date, List events) {
+  _buildEventsMarker(DateTime date, List events) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
@@ -235,11 +257,16 @@ class _EventsState extends State<Events> {
         }));
   }
 
-  _createEvent(DateTime date, TimeOfDay time, name) {
+  _createEvent(DateTime date, TimeOfDay time, name) async {
     User user = Provider.of<User>(context, listen: false);
     Navigator.pop(context);
     var event = new Event(eventName: name, date: date, time: time);
-    eventService.insertEvent(user.id, event);
+    var response = await eventService.insertEvent(user.id, event);
+    if (response.isOk) {
+      alert(context, "Evento criado com sucesso!");
+    } else {
+      alert(context, response.msg);
+    }
     _handleEvents();
   }
 
@@ -251,8 +278,10 @@ class _EventsState extends State<Events> {
         _events = response.result;
       });
     }
-    var selectedEvents = _events != null ? _events[_selectedDay] : null;
     setState(() {
+      _selectedDay =
+          new DateTime(_selectedDay.year, _selectedDay.month, _selectedDay.day);
+      var selectedEvents = _events != null ? _events[_selectedDay] : null;
       _selectedEvents = selectedEvents != null ? selectedEvents : [];
     });
   }
@@ -262,15 +291,17 @@ class _EventsState extends State<Events> {
     var originalTime = event.time;
     var date = new DateTime(originalDate.year, originalDate.month,
         originalDate.day, originalTime.hour, originalTime.minute);
-    return dateUtils.formatDate('dd/MM/yyyy HH:mm', date.toIso8601String());
+    return dateUtils.formatDate(
+        "dd/MM/yyyy 'às' HH:mm", date.toIso8601String());
   }
 
   _confirmDeleteEvent(event) {
     showDialog(
-      context: context,
-      builder: (context) {
-        return ConfirmDialog(_deleteEvent, "Deseja excluir o evento?", functionParam: event);
-      });
+        context: context,
+        builder: (context) {
+          return ConfirmDialog(_deleteEvent, "Deseja excluir o evento?",
+              functionParam: event);
+        });
   }
 
   _deleteEvent(Event event) async {

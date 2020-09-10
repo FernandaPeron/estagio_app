@@ -1,10 +1,9 @@
-import 'dart:developer';
+import 'dart:convert' as convert;
 
+import "package:collection/collection.dart";
 import 'package:dio/dio.dart';
 import 'package:estagio_app/api/api_response.dart';
-import "package:collection/collection.dart";
 import 'package:estagio_app/entity/event_entity.dart';
-import 'dart:convert' as convert;
 
 class EventService {
 

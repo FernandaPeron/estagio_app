@@ -16,8 +16,14 @@ class SelectDateTime extends StatefulWidget {
 class _SelectDateTimeState extends State<SelectDateTime> {
   var _nameController = new TextEditingController();
   final DateUtils dateUtils = new DateUtils();
-  var _selectedDate = DateTime.now();
+  var _selectedDate;
   var _selectedTime = TimeOfDay.now();
+
+  @override
+  void initState() {
+    _selectedDate = widget.initialDate != null ? widget.initialDate : DateTime.now();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +142,10 @@ class _SelectDateTimeState extends State<SelectDateTime> {
   }
 
   _selectDate() async {
-    print(widget.initialDate);
     final DateTime picked = await showDatePicker(
       context: context,
       locale: const Locale("pt", "BR"),
-      initialDate: widget.initialDate != null ? widget.initialDate : _selectedDate,
+      initialDate: _selectedDate,
       firstDate: DateTime(2015, 8),
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget child) {

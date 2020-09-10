@@ -16,7 +16,7 @@ class DateUtils {
 
   stringToTimeOfDay(String map) {
     var hour = map.split(":")[0];
-    var minute = map.split(":")[0];
+    var minute = map.split(":")[1];
     return TimeOfDay(hour: int.parse(hour), minute: int.parse(minute));
   }
 
