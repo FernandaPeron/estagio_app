@@ -24,10 +24,7 @@ dependencies:
   dio: 3.0.10
   directory_picker: ^1.0.0
   table_calendar: ^2.2.3
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  excel: ^1.1.5
 
 flutter:
   uses-material-design: true

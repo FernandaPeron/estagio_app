@@ -17,7 +17,12 @@ class _AlarmsState extends State<Alarms> {
         backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Text("Alarmes"),
       ),
-      body: Container(),
+      body: Center(
+        child: Image.asset(
+          'assets/under_construction.png',
+          width: 500,
+        ),
+      ),
     );
   }
 }
