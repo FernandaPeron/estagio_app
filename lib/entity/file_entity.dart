@@ -4,6 +4,7 @@ class Archive {
   String name = "";
   String date = "";
   String file = "";
+  String type = "";
 
   Archive({this.id, this.name, this.date, this.file});
 
@@ -12,6 +13,7 @@ class Archive {
     this.name = map["archiveName"];
     this.date = map["date"];
     this.file = map["file"];
+    this.type = map["type"];
   }
 
   Map<String, dynamic> toJson() =>
@@ -20,6 +22,7 @@ class Archive {
       "archiveName": this.name,
       "date": this.date,
       "file": this.file,
+      "type": this.type,
     };
 
 }

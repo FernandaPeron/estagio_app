@@ -1,15 +1,16 @@
 import 'dart:io';
 
 import 'package:estagio_app/api/api_response.dart';
-import 'package:estagio_app/components/file_item.dart';
 import 'package:estagio_app/components/search_bar.dart';
 import 'package:estagio_app/components/spreadsheet_item.dart';
-import 'package:estagio_app/entity/spreadsheet_entity.dart';
+import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/entity/user_entity.dart';
+import 'package:estagio_app/services/file_service.dart';
 import 'package:estagio_app/services/spreadsheets_service.dart';
 import 'package:estagio_app/utils/alert.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
 class Spreadsheets extends StatefulWidget {
@@ -18,15 +19,17 @@ class Spreadsheets extends StatefulWidget {
 }
 
 class _SpreadsheetsState extends State<Spreadsheets> {
-  List<Spreadsheet> spreadsheets = [];
-  SpreadsheetsService service = new SpreadsheetsService();
+  List<Archive> spreadsheets = [];
+  SpreadsheetsService spreadsheetService = new SpreadsheetsService();
+  FileService fileService = new FileService();
   User _user;
   bool _showProgress = false;
-  List<Spreadsheet> filteredList = [];
+  List<Archive> filteredList = [];
 
   @override
   initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _getSpreadsheetsFromUser());
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _getSpreadsheetsFromUser());
     super.initState();
   }
 
@@ -42,12 +45,34 @@ class _SpreadsheetsState extends State<Spreadsheets> {
         backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Text("Planilhas"),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () => _uploadSpreadsheet(),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(color: Colors.white),
+        overlayOpacity: .5,
+        overlayColor: Colors.black,
+        children: [
+          SpeedDialChild(
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            backgroundColor: Color(0xFF3DA88D),
+            label: 'Criar',
+            labelStyle: TextStyle(
+              color: Colors.black,
+            ),
+            onTap: () => print('FIRST CHILD'),
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.file_upload, color: Colors.white),
+            backgroundColor: Color(0xFF2A7563),
+            label: 'Upload',
+            labelStyle: TextStyle(
+              color: Colors.black,
+            ),
+            onTap: () => _uploadSpreadsheet(),
+          ),
+        ],
       ),
       body: _showProgress ? _loading() : _body(),
     );
@@ -78,7 +103,7 @@ class _SpreadsheetsState extends State<Spreadsheets> {
 
   _getSpreadsheetsFromUser() async {
     _setShowProgress(true);
-    final response = await service.getSpreadsheetsFromUser(_user.id);
+    final response = await spreadsheetService.getSpreadsheetsFromUser(_user.id);
     if (response != null && response.isOk) {
       setState(() {
         spreadsheets = response.result;
@@ -86,13 +111,14 @@ class _SpreadsheetsState extends State<Spreadsheets> {
         _sortList();
       });
     } else {
-      alert(context, "Ocorreu um erro ao realizar a operação. Tente novamente mais tarde.");
+      alert(context,
+          "Ocorreu um erro ao realizar a operação. Tente novamente mais tarde.");
     }
     _setShowProgress(false);
   }
 
   void _sortList() {
-    filteredList.sort((a,b) => b.date.compareTo(a.date));
+    filteredList.sort((a, b) => b.date.compareTo(a.date));
   }
 
   _setShowProgress(bool state) {
@@ -102,31 +128,33 @@ class _SpreadsheetsState extends State<Spreadsheets> {
   }
 
   _uploadSpreadsheet() async {
-    File file = await FilePicker.getFile(type: FileType.custom, allowedExtensions: ['xlsx']);
+    File file = await FilePicker.getFile(
+        type: FileType.custom, allowedExtensions: ['xlsx']);
     var user = Provider.of<User>(context, listen: false);
     _setShowProgress(true);
-    ApiResponse response = await service.uploadFile(file, user.id);
+    ApiResponse response = await fileService.uploadFile(file, user.id);
     if (response != null && response.isOk) {
       _getSpreadsheetsFromUser();
     } else {
-      alert(context, "Ocorreu um erro ao realizar a operação. Tente novamente mais tarde.");
+      alert(context,
+          "Ocorreu um erro ao realizar a operação. Tente novamente mais tarde.");
     }
     _setShowProgress(false);
   }
 
   _listOfSpreadsheets() {
-    return  filteredList.length != 0
+    return filteredList.length != 0
         ? ListView.builder(
-      shrinkWrap: true,
-      physics: new NeverScrollableScrollPhysics(),
-      itemBuilder: _buildSpreadsheetItem,
-      itemCount: filteredList.length,
-    )
+            shrinkWrap: true,
+            physics: new NeverScrollableScrollPhysics(),
+            itemBuilder: _buildSpreadsheetItem,
+            itemCount: filteredList.length,
+          )
         : Expanded(
-      child: Center(
-        child: Text("Não há planilhas para listar."),
-      ),
-    );
+            child: Center(
+              child: Text("Não há planilhas para listar."),
+            ),
+          );
   }
 
   _searchBar() {
@@ -143,7 +171,8 @@ class _SpreadsheetsState extends State<Spreadsheets> {
     }
     setState(() {
       filteredList = spreadsheets
-          .where((element) => element.name.toLowerCase().contains(term.toLowerCase()))
+          .where((element) =>
+              element.name.toLowerCase().contains(term.toLowerCase()))
           .toList();
       _sortList();
     });
