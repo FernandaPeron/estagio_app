@@ -1,0 +1,14 @@
+[
+  {
+    "question": "1. Qual a definição da primeira Lei de Ohm?",
+    "answer": "A Primeira Lei de Ohm postula que um condutor ôhmico (resistência constante) mantido à temperatura constante, a intensidade (i) de corrente elétrica será proporcional à diferença de potencial (ddp) aplicada entre suas extremidades.\n\nOu seja, sua resistência elétrica é constante.",
+    "images": [],
+    "source": "https://www.todamateria.com.br/leis-de-ohm/"
+  },
+  {
+    "question": "2. Qual a equação da primeira Lei de Ohm?",
+    "answer": "É contituída das variáveis:\nR: resistência, medida em Ohm (Ω)\nU: diferença de potencial elétrico (ddp), medido em Volts (V)\nI: intensidade da corrente elétrica, medida em Ampére (A).",
+    "images": ["assets/data/images/lei-de-ohm1.jpg", "assets/data/images/lei-de-ohm2.jpg"],
+    "source": "https://www.todamateria.com.br/leis-de-ohm/"
+  }
+]
