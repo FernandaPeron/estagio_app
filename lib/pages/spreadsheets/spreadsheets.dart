@@ -5,9 +5,11 @@ import 'package:estagio_app/components/search_bar.dart';
 import 'package:estagio_app/components/spreadsheet_item.dart';
 import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/entity/user_entity.dart';
+import 'package:estagio_app/pages/spreadsheets/excel_file.dart';
 import 'package:estagio_app/services/file_service.dart';
 import 'package:estagio_app/services/spreadsheets_service.dart';
 import 'package:estagio_app/utils/alert.dart';
+import 'package:estagio_app/utils/nav.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -45,34 +47,12 @@ class _SpreadsheetsState extends State<Spreadsheets> {
         backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Text("Planilhas"),
       ),
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        animatedIconTheme: IconThemeData(color: Colors.white),
-        overlayOpacity: .5,
-        overlayColor: Colors.black,
-        children: [
-          SpeedDialChild(
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            backgroundColor: Color(0xFF3DA88D),
-            label: 'Criar',
-            labelStyle: TextStyle(
-              color: Colors.black,
-            ),
-            onTap: () => print('FIRST CHILD'),
-          ),
-          SpeedDialChild(
-            child: Icon(Icons.file_upload, color: Colors.white),
-            backgroundColor: Color(0xFF2A7563),
-            label: 'Upload',
-            labelStyle: TextStyle(
-              color: Colors.black,
-            ),
-            onTap: () => _uploadSpreadsheet(),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () => createSpreadsheet(),
       ),
       body: _showProgress ? _loading() : _body(),
     );
@@ -127,21 +107,6 @@ class _SpreadsheetsState extends State<Spreadsheets> {
     });
   }
 
-  _uploadSpreadsheet() async {
-    File file = await FilePicker.getFile(
-        type: FileType.custom, allowedExtensions: ['xlsx']);
-    var user = Provider.of<User>(context, listen: false);
-    _setShowProgress(true);
-    ApiResponse response = await fileService.uploadFile(file, user.id);
-    if (response != null && response.isOk) {
-      _getSpreadsheetsFromUser();
-    } else {
-      alert(context,
-          "Ocorreu um erro ao realizar a operação. Tente novamente mais tarde.");
-    }
-    _setShowProgress(false);
-  }
-
   _listOfSpreadsheets() {
     return filteredList.length != 0
         ? ListView.builder(
@@ -176,5 +141,9 @@ class _SpreadsheetsState extends State<Spreadsheets> {
           .toList();
       _sortList();
     });
+  }
+
+  createSpreadsheet() {
+    push(context, ExcelFile());
   }
 }

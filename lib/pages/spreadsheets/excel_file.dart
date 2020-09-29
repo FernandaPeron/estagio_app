@@ -1,42 +1,39 @@
+import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/utils/string_id_generator.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 
 class ExcelFile extends StatefulWidget {
+  final Archive archive;
 
-  final fileName;
-
-  ExcelFile(this.fileName);
+  ExcelFile({this.archive});
 
   @override
   _ExcelFileState createState() => _ExcelFileState();
 }
 
 class _ExcelFileState extends State<ExcelFile> {
-
-  final columns = 10;
-  final rows = 20;
-  StringIdGenerator stringId = new StringIdGenerator();
-  List<List<String>> data = [];
+  final columns = 26;
+  final rows = 21;
+  final stringId = new StringIdGenerator();
+  var excel;
+  var bytes;
   List<String> titleColumn = [];
   List<String> titleRow = [];
+  List<List<String>> data;
 
-  List<List<String>> _makeData() {
-    final List<List<String>> output = [];
-    for (int i = 0; i < columns; i++) {
-      final List<String> row = [];
-      for (int j = 0; j < rows; j++) {
-        row.add('T$i : L$j');
-      }
-      output.add(row);
+  @override
+  void initState() {
+    if (widget.archive == null) {
+      excel = Excel.createExcel();
     }
-    return output;
+    super.initState();
   }
 
-  /// Simple generator for column title
-  List<String> _makeTitleColumn() => List.generate(columns, (i) => stringId.next());
+  List<String> _makeTitleColumn() =>
+      List.generate(columns, (i) => stringId.next(i));
 
-  /// Simple generator for row title
   List<String> _makeTitleRow() => List.generate(rows, (i) => '$i');
 
   @override
@@ -49,15 +46,18 @@ class _ExcelFileState extends State<ExcelFile> {
         elevation: 0.0,
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        title: Text(widget.fileName),
+        title: Text(widget.archive != null ? widget.archive.name : ''),
       ),
       body: StickyHeadersTable(
         columnsLength: titleColumn.length,
         rowsLength: titleRow.length,
         columnsTitleBuilder: (i) => Text(titleColumn[i]),
         rowsTitleBuilder: (i) => Text(titleRow[i]),
-        contentCellBuilder: (i, j) =>
-            Container(height: 50, width: 50, child: TextField()),
+        contentCellBuilder: (i, j) => Container(
+          height: 50,
+          width: 50,
+          child: TextField(),
+        ),
       ),
     );
   }

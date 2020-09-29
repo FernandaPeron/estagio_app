@@ -51,7 +51,7 @@ class _SpreadsheetItemState extends State<SpreadsheetItem> {
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: () => push(context, ExcelFile(widget.file.name)),
+              onTap: () => push(context, ExcelFile(archive: widget.file)),
               child: Row(
                 children: <Widget>[
                   Icon(
