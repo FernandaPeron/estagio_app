@@ -1,8 +1,9 @@
-import 'dart:convert';
+import "dart:convert";
+import "dart:developer";
 
-import 'package:estagio_app/components/search_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import "package:estagio_app/components/search_bar.dart";
+import "package:flutter/material.dart";
+import "package:flutter/services.dart" show rootBundle;
 
 class FAQ extends StatefulWidget {
   @override
@@ -14,10 +15,11 @@ class _FAQState extends State<FAQ> {
   List faqs = [];
 
   getJson() async {
-    var json = jsonDecode(await rootBundle.loadString('assets/data/faq.json'));
-    faqs = json;
-    filteredList = json;
-    print(json);
+    var json = jsonDecode(await rootBundle.loadString("assets/data/faq.json"));
+    setState(() {
+      faqs = json;
+      filteredList = json;
+    });
   }
 
   @override
@@ -41,13 +43,11 @@ class _FAQState extends State<FAQ> {
   }
 
   _body() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          _searchBar(),
-          _listOfFaqs(),
-        ],
-      ),
+    return ListView(
+      children: [
+        _searchBar(),
+        _listOfFaqs(),
+      ],
     );
   }
 
@@ -59,10 +59,8 @@ class _FAQState extends State<FAQ> {
             itemBuilder: _buildFaqItem,
             itemCount: filteredList.length,
           )
-        : Expanded(
-            child: Center(
-              child: Text("Não foram encontrados resultados."),
-            ),
+        : Center(
+            child: Text("Não foram encontrados resultados."),
           );
   }
 
@@ -95,15 +93,17 @@ class _FAQState extends State<FAQ> {
     return Container(
       child: Column(
         children: <Widget>[
-          Text(filteredList[index].question),
-          Text(filteredList[index].answer),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: new NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) =>
-                _buildImageItem(context, index, filteredList[index].images),
-            itemCount: filteredList[index].images.length,
-          )
+          Text(filteredList[index]["question"]),
+          Text(filteredList[index]["answer"]),
+          filteredList[index]["images"].length != 0
+              ? ListView.builder(
+                  shrinkWrap: true,
+                  physics: new NeverScrollableScrollPhysics(),
+                  itemCount: filteredList[index]["images"].length,
+                  itemBuilder: (context, itemIndex) => _buildImageItem(
+                      context, itemIndex, filteredList[index]["images"]),
+                )
+              : Container(),
         ],
       ),
     );
