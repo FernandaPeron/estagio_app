@@ -1,9 +1,10 @@
 import "dart:convert";
-import "dart:developer";
 
 import "package:estagio_app/components/search_bar.dart";
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import "package:flutter/services.dart" show rootBundle;
+import 'package:url_launcher/url_launcher.dart';
 
 class FAQ extends StatefulWidget {
   @override
@@ -43,11 +44,14 @@ class _FAQState extends State<FAQ> {
   }
 
   _body() {
-    return ListView(
-      children: [
-        _searchBar(),
-        _listOfFaqs(),
-      ],
+    return Container(
+      margin: EdgeInsets.all(15),
+      child: ListView(
+        children: [
+          _searchBar(),
+          _listOfFaqs(),
+        ],
+      ),
     );
   }
 
@@ -91,10 +95,24 @@ class _FAQState extends State<FAQ> {
 
   Widget _buildFaqItem(BuildContext context, int index) {
     return Container(
+      margin: EdgeInsets.only(bottom: 25),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(filteredList[index]["question"]),
-          Text(filteredList[index]["answer"]),
+          Text(
+            filteredList[index]["question"],
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            filteredList[index]["answer"],
+            textAlign: TextAlign.justify,
+            style: TextStyle(height: 1.3),
+          ),
           filteredList[index]["images"].length != 0
               ? ListView.builder(
                   shrinkWrap: true,
@@ -104,12 +122,28 @@ class _FAQState extends State<FAQ> {
                       context, itemIndex, filteredList[index]["images"]),
                 )
               : Container(),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            alignment: Alignment.centerRight,
+            child: InkWell(
+              child: Text(
+                "Fonte",
+                style: TextStyle(decoration: TextDecoration.underline),
+              ),
+              onTap: () => launch(filteredList[index]["source"]),
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildImageItem(BuildContext context, int index, List images) {
-    return Image.asset(images[index]);
+    return Container(
+      margin: EdgeInsets.all(15),
+      child: Image.asset(
+        images[index],
+      ),
+    );
   }
 }

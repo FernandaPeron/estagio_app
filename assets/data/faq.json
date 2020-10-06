@@ -8,7 +8,25 @@
   {
     "question": "2. Qual a equação da primeira Lei de Ohm?",
     "answer": "É contituída das variáveis:\nR: resistência, medida em Ohm (Ω)\nU: diferença de potencial elétrico (ddp), medido em Volts (V)\nI: intensidade da corrente elétrica, medida em Ampére (A).",
-    "images": ["assets/data/images/lei-de-ohm1.jpg", "assets/data/images/lei-de-ohm2.jpg"],
+    "images": ["assets/data/images/lei-de-ohm.jpg"],
     "source": "https://www.todamateria.com.br/leis-de-ohm/"
+  },
+  {
+    "question": "3. O que é um motor de alto rendimento?",
+    "answer": "É um motor que possui rendimento superior ao motor padrão, com perdas reduzidas. Isso se deve a mudanças no projeto, materiais e processos de fabricação melhores.",
+    "images": [],
+    "source": "https://bucket-gw-cni-static-cms-si.s3.amazonaws.com/media/uploads/arquivos/MotordeAltoRendimento-LIV009.pdf"
+  },
+  {
+    "question": "4. O que é rendimento em motores?",
+    "answer": "É a relação entre a potência mecânica desenvolvida no eixo do motor e a potência elétrica ativa que ele consome da rede de alimentação.",
+    "images": [],
+    "source": "https://bucket-gw-cni-static-cms-si.s3.amazonaws.com/media/uploads/arquivos/MotordeAltoRendimento-LIV009.pdf"
+  },
+  {
+    "question": "5. Como calcular o rendimento de um motor?",
+    "answer": "Em valores percentuais:",
+    "images": ["assets/data/images/potencia.png"],
+    "source": "https://bucket-gw-cni-static-cms-si.s3.amazonaws.com/media/uploads/arquivos/MotordeAltoRendimento-LIV009.pdf"
   }
 ]
