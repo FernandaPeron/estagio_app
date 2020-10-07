@@ -28,5 +28,89 @@
     "answer": "Em valores percentuais:",
     "images": ["assets/data/images/potencia.png"],
     "source": "https://bucket-gw-cni-static-cms-si.s3.amazonaws.com/media/uploads/arquivos/MotordeAltoRendimento-LIV009.pdf"
+  },
+  {
+    "question": "6. Do que consistem os transformadores?",
+    "answer": "Os transformadores consistem em dois enrolamentos de fios, primário e secundário, envolvidos em um núcleo metálico. A passagem de uma corrente elétrica alternada no enrolamento primário induz à formação de uma corrente elétrica alternada no enrolamento secundário. A proporção entre as correntes primária e secundária depende da relação entre o número de voltas em cada um dos enrolamentos.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "7. Como funcionam os transformadores?",
+    "answer": "Os transformadores são usados para abaixar ou aumentar as tensões e correntes elétricas em circuitos de consumo ou transmissão de energia elétrica. Se um transformador abaixa uma tensão elétrica, ele automaticamente aumenta a intensidade da corrente elétrica de saída e vice-versa, mantendo sempre constante a potência transmitida, dada pelo produto da corrente pela tensão.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "8. Como se dá a transmissão de energia em grandes distâncias?",
+    "answer": "Por questões de eficiência, a transmissão de energia elétrica em grandes distâncias sempre ocorre em alta tensão e com baixa corrente elétrica, em resposta às perdas de energia ocasionadas pelo efeito Joule, uma vez que a energia dissipada nos fios é proporcional à corrente elétrica.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "9. Como são os valores de tensão em circuitos de consumo de energia?",
+    "answer": "Para os circuitos de consumo de energia, como os residenciais, são utilizados baixos valores de tensão elétrica, por questões de segurança — potenciais elétricos muito elevados podem produzir descargas elétricas.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "10. Como funciona o enrolamento primário de um transformador?",
+    "answer": "O enrolamento primário é ligado diretamente a um gerador de força eletromotriz alternada (transformadores não funcionam com corrente direta), ou seja, nele, forma-se uma corrente elétrica de intensidade e sentido variável, levando à geração de um campo magnético com as mesmas características. Esse campo magnético é então concentrado e amplificado pelo núcleo férreo em direção ao enrolamento secundário. O campo magnético variável induz ao surgimento de uma corrente elétrica no secundário.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "11. Qual a equação da relação entre os potenciais elétricos entre os enrolamentos primário e secundário de um transformador?",
+    "answer": "VP — tensão no enrolamento primário\nVS — tensão no enrolamento secundário\nNP — número de espiras no enrolamento primário\nNS — número de espiras no enrolamento secundário.",
+    "images": ["assets/data/images/potenciais-enrolamentos.png"],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "12. Qual a função de um transformador de corrente?",
+    "answer": "Tem como principal finalidade abaixar a intensidade da corrente elétrica, a fim de transmiti-la para redes de transmissão ou para dispositivos que não suportem correntes elétricas altas.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "13. Qual a função de um transformador de potencial?",
+    "answer": "Pode abaixar ou aumentar o potencial elétrico de acordo com a demanda e com o número de enrolamentos na bobina primária e secundária.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "14. Qual a função de um transformador de distribuição?",
+    "answer": "Presente nas centrais de distribuição das usinas elétricas, é responsável por distribuir a corrente elétrica, para diferentes tipos de consumidores, por meio das linhas de transmissão.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "15. Qual a função de um transformador de força?",
+    "answer": "Opera com altíssimos níveis de potencial elétrico e corrente elétrica, é usado na geração de energia elétrica, mas também em aplicações que requeiram muita potência elétrica, como fornos industriais e fornos de indução.",
+    "images": [],
+    "source": "https://brasilescola.uol.com.br/o-que-e/fisica/o-que-e-um-transformador.htm"
+  },
+  {
+    "question": "17. O que é a Etiqueta Nacional de Conservação de Energia (ENCE)?",
+    "answer": "É uma etiqueta criada pelo Inmetro para apresentar informações sobre o desempenho de certos produtos, no que diz respeito ao seu consumo energético.\nA ENCE classifica equipamentos, veículos e edifícios e é atualizada periodicamente. A eficiência energética dos produtos é representada por uma variação de cores, que vão do verde ao vermelho, juntamente com letras, que vão de “A” a “E”.",
+    "images": ["assets/data/images/etiqueta_selo_procel.png"],
+    "source": "http://blog.moveissimonetti.com.br/entenda-mais-sobre-a-etiqueta-de-consumo-de-energia/"
+  },
+  {
+    "question": "18. Qual a média de potência elétrica dos aparelhos elétricos e eletrônicos mais comuns?",
+    "answer": "Aparelho de som – 200 W\nVentilador – 100 W\nAquecedor de ambiente – 1.500 W\nMáquina de lavar louça – 2.700 W\nAspirador de pó – 1.000 W\nForno elétrico – 5.000 W\nAquecedor central de água – 5.000 W\nImpressora laser – 400 W\nBalcão frigorífico – 900 W\nTelevisão – 200 W\nBatedeira – 450 W\nForno de micro-ondas – 1.300 W\nBoiler – 900 W\nRefrigerador Duplex – 350 W\nCafeteira – 300 W\nFreezer – 150 W\nComputador – 350 W\nSecadora de roupa – 3.500 W\nCondicionador de ar – 1.600 W\nMotor 3 cv/hp – 2.200 W\nChuveiro elétrico – 5.000 W\nFritadeira – 1.200 W\nEnceradeira – 350 W\nLiquidificador – 400 W\nExaustor – 300 W\nFerro elétrico tradicional – 750 W\nTorneira elétrica – 3.500 W\nFerro elétrico regulável – 1.500 W\nGrill – 1.200 W\nSecador de cabelo – 1.300 W\nImpressora jato de tinta – 50 W\nMáquina de lavar roupa – 1.500 W\nMotor 7,5 cv/hp – 5.550 W",
+    "images": [],
+    "source": "https://www.mundodaeletrica.com.br/tabela-de-potencia-dos-eletrodomesticos/"
+  },
+  {
+    "question": "19. Como calcular o consumo de energia de um equipamento?",
+    "answer": "Normalmente os aparelhos eletrônicos possuem uma indicação de potência, por exemplo 1000watts ou 1000W. Caso você tenha um aparelho que consuma 1000 W (divida o valor por 1000 para saber em kW= 1kW) ou 1kW, e ele ficar ligado durante uma hora, você terá um consumo de 1kWh. Assim, se durante 30 dias do mês ele ficar ligado durante duas horas, você terá um consumo de 1kW * 30 dias * 2 horas = 60kWh. Se ele ficar ligado 20 dias, 2 horas por dia terá um consumo de 40kWh. Pois basta multiplicar o consumo diário pelo número de dias ligados no mês.",
+    "images": [],
+    "source": "https://financaspessoais.organizze.com.br/como-calcular-o-gasto-de-energia-eletrica-de-um-aparelho-eletronico/"
+  },
+  {
+    "question": "20. Como saber o gasto em R$ de um equipamento?",
+    "answer": "Na conta de luz, há um valor chamado de kilowatt-hora. O valor residencial do kwh varia de acordo com a região. Assim, para calcular quanto pagará pelo consumo, multiplique o valor mensal de consumo de energia do equipamento por esse custo regional.\nExemplo: 60kwh * 0,30 = R$ 18,00",
+    "images": [],
+    "source": "https://financaspessoais.organizze.com.br/como-calcular-o-gasto-de-energia-eletrica-de-um-aparelho-eletronico/"
   }
 ]

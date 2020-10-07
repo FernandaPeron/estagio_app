@@ -1,4 +1,5 @@
 import "dart:convert";
+import 'dart:developer';
 
 import "package:estagio_app/components/search_bar.dart";
 import 'package:flutter/cupertino.dart';
@@ -76,21 +77,16 @@ class _FAQState extends State<FAQ> {
     if (term.isEmpty) {
       setState(() {
         filteredList = List.from(faqs);
-        _sortList();
       });
       return;
     }
     setState(() {
       filteredList = faqs
           .where((element) =>
-              element.name.toLowerCase().contains(term.toLowerCase()))
+              element["question"].toLowerCase().contains(term.toLowerCase()) ||
+              element["answer"].toLowerCase().contains(term.toLowerCase()))
           .toList();
-      _sortList();
     });
-  }
-
-  void _sortList() {
-    filteredList.sort((a, b) => b.date.compareTo(a.date));
   }
 
   Widget _buildFaqItem(BuildContext context, int index) {
