@@ -103,14 +103,68 @@
   },
   {
     "question": "19. Como calcular o consumo de energia de um equipamento?",
-    "answer": "Normalmente os aparelhos eletrônicos possuem uma indicação de potência, por exemplo 1000watts ou 1000W. Caso você tenha um aparelho que consuma 1000 W (divida o valor por 1000 para saber em kW= 1kW) ou 1kW, e ele ficar ligado durante uma hora, você terá um consumo de 1kWh. Assim, se durante 30 dias do mês ele ficar ligado durante duas horas, você terá um consumo de 1kW * 30 dias * 2 horas = 60kWh. Se ele ficar ligado 20 dias, 2 horas por dia terá um consumo de 40kWh. Pois basta multiplicar o consumo diário pelo número de dias ligados no mês.",
+    "answer": "Normalmente os aparelhos eletrônicos possuem uma indicação de potência, por exemplo 1000 W. Caso você tenha um aparelho que consuma 1000 W ou 1 kW (divida o valor por 1000 para saber em kW), e ele ficar ligado durante uma hora, você terá um consumo de 1 kWh. Assim, se durante 30 dias do mês ele ficar ligado durante duas horas, você terá um consumo de 1 kW * 30 dias * 2 horas = 60 kWh. Se ele ficar ligado 20 dias, 2 horas por dia terá um consumo de 40kWh. Basta multiplicar o consumo diário pelo número de dias ligados no mês.",
     "images": [],
     "source": "https://financaspessoais.organizze.com.br/como-calcular-o-gasto-de-energia-eletrica-de-um-aparelho-eletronico/"
   },
   {
     "question": "20. Como saber o gasto em R$ de um equipamento?",
-    "answer": "Na conta de luz, há um valor chamado de kilowatt-hora. O valor residencial do kwh varia de acordo com a região. Assim, para calcular quanto pagará pelo consumo, multiplique o valor mensal de consumo de energia do equipamento por esse custo regional.\nExemplo: 60kwh * 0,30 = R$ 18,00",
+    "answer": "Na conta de luz, há um valor chamado de kilowatt-hora. O valor residencial do kwh varia de acordo com a região. Assim, para calcular quanto pagará pelo consumo, multiplique o valor mensal de consumo de energia do equipamento por esse custo regional.\nExemplo: 60kwh * 0,30 = R$ 18,00.",
     "images": [],
     "source": "https://financaspessoais.organizze.com.br/como-calcular-o-gasto-de-energia-eletrica-de-um-aparelho-eletronico/"
+  },
+  {
+    "question": "21. O que é a segunda lei de ohm?",
+    "answer": "A Segunda Lei de Ohm é uma expressão matemática que relaciona as propriedades físicas que interferem na resistência elétrica de um corpo condutor e homogêneo. Essa lei informa que a resistência elétrica de um corpo é diretamente proporcional ao seu comprimento e resistividade e inversamente proporcional à sua área transversal.",
+    "images": [],
+    "source": "https://mundoeducacao.uol.com.br/fisica/segunda-lei-ohm.htm"
+  },
+  {
+    "question": "22. Qual a equação da segunda lei de ohm?",
+    "answer": "R – resistência elétrica (Ω – omhs)\nρ – resistividade (Ω.m – ohms vezes metro)\nl – comprimento do corpo (m – metros)\nA – área transversal do corpo (m² – metros quadrados)",
+    "images": ["assets/data/images/segunda-lei-ohm.png"],
+    "source": "https://mundoeducacao.uol.com.br/fisica/segunda-lei-ohm.htm"
+  },
+  {
+    "question": "23. Qual a resistividade da prata?",
+    "answer": "A resistividade da prata é de 1,6.10-⁶Ωm",
+    "images": [],
+    "source": "https://mundoeducacao.uol.com.br/fisica/segunda-lei-ohm.htm"
+  },
+  {
+    "question": "24. Qual a resistividade do cobre?",
+    "answer": "A resistividade do cobre é de 1,7.10-⁶Ωm",
+    "images": [],
+    "source": "https://mundoeducacao.uol.com.br/fisica/segunda-lei-ohm.htm"
+  },
+  {
+    "question": "25. Qual a resistividade do alumínio?",
+    "answer": "A resistividade do alumínio é de 2,8.10-⁶Ωm",
+    "images": [],
+    "source": "https://mundoeducacao.uol.com.br/fisica/segunda-lei-ohm.htm"
+  },
+  {
+    "question": "26. Qual a resistividade do quartzo fundido?",
+    "answer": "A resistividade do quartzo fundido é de 75.10¹⁸Ωm",
+    "images": [],
+    "source": "https://mundoeducacao.uol.com.br/fisica/segunda-lei-ohm.htm"
+  },
+  {
+    "question": "27. Como converter btu para watt?",
+    "answer": "Para a conversão de Btu para Watt é usada uma constante 0,293. Basta multiplicar o valor em btu por esta constante para que se obtenha o valor em watt.",
+    "images": [],
+    "source": "https://www.mundodaeletrica.com/btu-x-watt-potencia-de-ar-condicionado"
+  },
+  {
+    "question": "28. Quando é usado óleo para lubrificação de rolamentos?",
+    "answer": "Utiliza-se óleo para a lubrificação de rolamentos somente quando altas velocidades ou temperaturas elevadas não permitem o uso da graxa, quando o calor gerado por atrito ou de origem externa deva ser removido do rolamento, e também quando componentes adjacentes são lubrificados com óleo.",
+    "images": [],
+    "source": "https://www.abecom.com.br/lubrificacao-de-rolamentos/"
+  },
+  {
+    "question": "29. Como selecionar uma graxa para rolamentos?",
+    "answer": "Na maioria dos casos, não é difícil selecionar uma graxa para rolamentos, já que as qualidades padronizadas cobrem uma ampla gama de aplicações. Quando for preciso uma seleção mais exata, há que se levar em consideração:\n\nCondições de carga sob a qual está submetido o rolamento;\nFaixa de velocidade;\nCondições de funcionamento tais como: vibrações e orientação do eixo (horizontal ou vertical);\nCondições de refrigeração;\nEficácia de vedação;\nAmbiente externo;\nEm determinados campos de aplicação, podem ser requeridas normas especiais.",
+    "images": [],
+    "source": "http://conectafg.com.br/graxas-para-rolamentos-como-utilizar/"
   }
 ]
