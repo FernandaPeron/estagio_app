@@ -166,5 +166,41 @@
     "answer": "Na maioria dos casos, não é difícil selecionar uma graxa para rolamentos, já que as qualidades padronizadas cobrem uma ampla gama de aplicações. Quando for preciso uma seleção mais exata, deve-se levar em consideração:\n\nCondições de carga sob a qual está submetido o rolamento;\nFaixa de velocidade;\nCondições de funcionamento tais como: vibrações e orientação do eixo (horizontal ou vertical);\nCondições de refrigeração;\nEficácia de vedação;\nAmbiente externo;\nEm determinados campos de aplicação, podem ser requeridas normas especiais.",
     "images": [],
     "source": "http://conectafg.com.br/graxas-para-rolamentos-como-utilizar/"
+  },
+  {
+    "question": "30. Para que serve a blindagem de um rolamento?",
+    "answer": "A blindagem serve para evitar o vazamento do lubrificante e para evitar a entrada de poeira ou outros contaminantes dentro do rolamento.\nEssas são as duas funções básicas das blindagens e das vedações dos rolamentos. Há diversos tipos de blindagem, cada uma com características próprias e mais adequadas para certas aplicações.",
+    "images": [],
+    "source": "https://www.cyhrolamentos.com.br/info/para-que-serve-a-blindagem-de-um-rolamento"
+  },
+  {
+    "question": "31. Quais os dois tipos mais comuns de blindagem de rolamentos?",
+    "answer": "ZZ / 2Z / ZZE - dupla blindagem de aço\n2RS / 2NSE / 2RS1 - dupla vedação de borracha\n O código que identifica a blindagem pode variar com o fabricante, e pode haver pequenas diferenças construtivas entre os diferentes fabricantes.\nCaso a blindagem seja em apenas um dos lados do rolamento ele seria identificado somente como “Z” ou “RS”.\nPor uma questão de economia, vários fabricantes marcam o código do rolamento com apenas uma letra, ex: “Z”. Mas, se a blindagem estiver presente em ambos os lados, então o rolamento é na verdade “ZZ”.\nExemplo: Rolamento marcado como 608 Z. Mas se essa marcação estiver em ambos lados (ou seja, ele tem 2 blindagens), na verdade ele é um 608 ZZ (ou 608 2Z, dependendo da marca).",
+    "images": [],
+    "source": "https://www.cyhrolamentos.com.br/info/para-que-serve-a-blindagem-de-um-rolamento"
+  },
+  {
+    "question": "32. Qual a diferença entre a blindagem ZZ e a vedação 2RS do rolamento?",
+    "answer": "A diferença básica é que a blindagem ZZ é de aço, e a vedação é de borracha 2RS.\nEssa diferença faz com que:\nZZ: blindagem sem contato, permite maior rotação mas não oferece uma vedação tão boa contra poeira, líquidos e outras impurezas do ambiente.\n2RS: vedação com contato, limita a rotação do rolamento, mas oferece ótima proteção contra as impurezas.",
+    "images": [],
+    "source": "https://www.cyhrolamentos.com.br/info/para-que-serve-a-blindagem-de-um-rolamento"
+  },
+  {
+    "question": "33. Qual a equação da potência elétrica?",
+    "answer": "P – potência, dada em watt (W)\ni – corrente elétrica, dada em ampère (A)\nU – tensão, dada em volt (V)\nR – resistência, dada em ohm (Ω)\nPode ser calculada de três formas:",
+    "images": ["assets/data/images/potencia-eletrica.png"],
+    "source": "https://mundoeducacao.uol.com.br/fisica/potencia-resistores.htm"
+  },
+  {
+    "question": "34. O que é o grau de proteção IP?",
+    "answer": "O IP é o indicativo do grau de proteção de um produto. É um padrão internacional definido pela Comissão Eletrotécnica Internacional (a IEC) para classificar e avaliar o grau de proteção de produtos eletrônicos fornecidos contra a entrada de poeira e água. IP 68 é o maior grau possível de proteção que um produto pode atingir. O ideal é que todos os produtos possuam este grau de proteção (IP 68).",
+    "images": [],
+    "source": "https://www.fibracem.com/noticias/o-que-e-grau-de-protecao-ip/"
+  },
+  {
+    "question": "34. Como funcionam os códigos do grau de proteção IP?",
+    "answer": "O código que define o grau de proteção IP é composto por 3 dígitos, que indicam a conformidade com as condições explicadas na tabela a seguir. Onde não há dados disponíveis para especificar um grau de proteção em relação a um dos critérios, o dígito é substituído pela letra X. Assim, o primeiro dígito se refere às partículas sólidas, o segundo ao meio líquido e o terceiro, que é um caracter, é exibido apenas quando o nível de proteção contra líquidos é excepcionalmente alto (acima do nível 8), e protege o equipamento contra jatos pressurizados. O código pode ser expresso, por exemplo, das seguintes formas: IP65, IP68, IP9K (o mais alto da norma).",
+    "images": ["assets/data/images/gpip1.png", "assets/data/images/gpip2.png", "assets/data/images/gpip3.png"],
+    "source": "https://www.weightech.com.br/graus-de-protecao/"
   }
 ]

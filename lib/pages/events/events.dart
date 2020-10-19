@@ -199,7 +199,14 @@ class _EventsState extends State<Events> {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: ListTile(
-        title: Text(event.eventName),
+        title: Text(
+          event.eventName,
+          style: TextStyle(
+            decoration: event.completed
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+          ),
+        ),
         subtitle: Text(
           _eventSubtitle(event),
           style: TextStyle(
@@ -207,13 +214,30 @@ class _EventsState extends State<Events> {
           ),
         ),
         trailing: Container(
-          width: 50,
-          child: FlatButton(
-            onPressed: () => _confirmDeleteEvent(event),
-            child: Icon(
-              Icons.delete,
-              color: Colors.white,
-            ),
+          width: 100,
+          child: Row(
+            children: [
+              Container(
+                width: 50,
+                child: FlatButton(
+                  onPressed: () => _toggleEvent(event),
+                  child: Icon(
+                    event.completed ? Icons.check_box : Icons.check_box_outline_blank,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                width: 50,
+                child: FlatButton(
+                  onPressed: () => _confirmDeleteEvent(event),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -265,6 +289,14 @@ class _EventsState extends State<Events> {
     if (response.isOk) {
       alert(context, "Evento criado com sucesso!");
     } else {
+      alert(context, response.msg);
+    }
+    _handleEvents();
+  }
+
+  _toggleEvent(event) async {
+    var response = await eventService.completeResetEvent(event);
+    if (!response.isOk) {
       alert(context, response.msg);
     }
     _handleEvents();
