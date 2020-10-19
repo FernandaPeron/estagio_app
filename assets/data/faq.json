@@ -198,7 +198,7 @@
     "source": "https://www.fibracem.com/noticias/o-que-e-grau-de-protecao-ip/"
   },
   {
-    "question": "34. Como funcionam os códigos do grau de proteção IP?",
+    "question": "35. Como funcionam os códigos do grau de proteção IP?",
     "answer": "O código que define o grau de proteção IP é composto por 3 dígitos, que indicam a conformidade com as condições explicadas na tabela a seguir. Onde não há dados disponíveis para especificar um grau de proteção em relação a um dos critérios, o dígito é substituído pela letra X. Assim, o primeiro dígito se refere às partículas sólidas, o segundo ao meio líquido e o terceiro, que é um caracter, é exibido apenas quando o nível de proteção contra líquidos é excepcionalmente alto (acima do nível 8), e protege o equipamento contra jatos pressurizados. O código pode ser expresso, por exemplo, das seguintes formas: IP65, IP68, IP9K (o mais alto da norma).",
     "images": ["assets/data/images/gpip1.png", "assets/data/images/gpip2.png", "assets/data/images/gpip3.png"],
     "source": "https://www.weightech.com.br/graus-de-protecao/"
