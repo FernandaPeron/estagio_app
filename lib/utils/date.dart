@@ -7,6 +7,13 @@ class DateUtils {
     return new DateFormat(format, 'pt_BR').format(DateTime.parse(date));
   }
 
+  timeOfDayToDate(TimeOfDay time) {
+    var tempDate = DateTime.now();
+    var datetime = DateTime(tempDate.year, tempDate.month,
+        tempDate.day, time.hour, time.minute);
+    return datetime;
+  }
+
   timeOfDayToString(TimeOfDay time) {
     var tempDate = DateTime.now();
     var datetime = DateTime(tempDate.year, tempDate.month,
