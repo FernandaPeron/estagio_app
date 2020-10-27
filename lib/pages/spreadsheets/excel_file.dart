@@ -1,6 +1,7 @@
 import 'package:estagio_app/entity/file_entity.dart';
 import 'package:estagio_app/utils/string_id_generator.dart';
 import 'package:excel/excel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 
@@ -49,14 +50,29 @@ class _ExcelFileState extends State<ExcelFile> {
         title: Text(widget.archive != null ? widget.archive.name : ''),
       ),
       body: StickyHeadersTable(
+        cellDimensions: CellDimensions(
+          stickyLegendWidth: 60,
+          stickyLegendHeight: 30,
+          contentCellWidth: 80,
+          contentCellHeight: 45,
+        ),
         columnsLength: titleColumn.length,
         rowsLength: titleRow.length,
         columnsTitleBuilder: (i) => Text(titleColumn[i]),
         rowsTitleBuilder: (i) => Text(titleRow[i]),
         contentCellBuilder: (i, j) => Container(
-          height: 50,
-          width: 50,
-          child: TextField(),
+          height: 60,
+          width: 105,
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          margin: EdgeInsets.all(0),
+          decoration: BoxDecoration(
+            color: Color(0xFFE7E7E7),
+            border: Border.all(width: 0.8, color: Colors.black),
+          ),
+          child: TextField(
+            style: TextStyle(color: Colors.black, fontSize: 18, height: 1.7),
+            decoration: InputDecoration(focusedBorder: InputBorder.none, border: InputBorder.none),
+          ),
         ),
       ),
     );
